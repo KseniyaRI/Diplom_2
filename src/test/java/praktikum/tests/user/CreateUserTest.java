@@ -4,8 +4,10 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Named;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import praktikum.BaseTest;
 import praktikum.data.TestUserData;
@@ -23,13 +25,14 @@ public class CreateUserTest extends BaseTest {
     private String accessToken;
     private User user;
 
-    static Stream<User> missingFields() {
+    static Stream<Arguments> missingFields() {
         User full = TestUserData.randomUser();
         return Stream.of(
-                // email = null: Jackson не пишет ключ в JSON — поле «не заполнили», не "email": null
-                new User(null, full.getPassword(), full.getName()),
-                new User(full.getEmail(), null, full.getName()),
-                new User(full.getEmail(), full.getPassword(), null)
+                // @JsonInclude(NON_NULL): Jackson не кладёт в JSON ключ email. В теле запроса поля нет — сервер видит «не заполнили».
+                // Это не то же самое, что отправить "email": null.
+                Arguments.of(Named.of("без email", new User(null, full.getPassword(), full.getName()))),
+                Arguments.of(Named.of("без пароля", new User(full.getEmail(), null, full.getName()))),
+                Arguments.of(Named.of("без имени", new User(full.getEmail(), full.getPassword(), null)))
         );
     }
 
@@ -76,7 +79,7 @@ public class CreateUserTest extends BaseTest {
                 .body("message", equalTo("User already exists"));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{0}")
     @MethodSource("missingFields")
     @DisplayName("Нельзя создать пользователя без обязательного поля")
     public void shouldNotCreateUserWhenRequiredFieldIsMissing(User invalidUser) {

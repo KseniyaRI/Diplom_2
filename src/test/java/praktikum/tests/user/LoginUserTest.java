@@ -50,9 +50,21 @@ public class LoginUserTest extends BaseTest {
 
     @Test
     @DisplayName("Нельзя залогиниться с неверным паролем")
-    public void shouldNotLoginWithWrongCredentials() {
+    public void shouldNotLoginWithWrongPassword() {
         User wrongPassword = new User(user.getEmail(), "wrong" + user.getPassword(), user.getName());
         Response response = userSteps.login(wrongPassword);
+
+        response.then()
+                .statusCode(401)
+                .body("success", equalTo(false))
+                .body("message", equalTo("email or password are incorrect"));
+    }
+
+    @Test
+    @DisplayName("Нельзя залогиниться с неверным логином")
+    public void shouldNotLoginWithWrongLogin() {
+        User wrongLogin = new User(TestUserData.randomUser().getEmail(), user.getPassword(), user.getName());
+        Response response = userSteps.login(wrongLogin);
 
         response.then()
                 .statusCode(401)

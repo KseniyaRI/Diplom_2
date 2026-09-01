@@ -31,15 +31,12 @@ public class OrderSteps {
         return request.when().get(BurgersConfig.ORDERS);
     }
 
-    @Step("Получить список ингредентов")
-    public Response getIngredients() {
-        return RestAssured.given()
-                .when()
-                .get(BurgersConfig.INGREDIENTS);
-    }
-
     @Step("Получить id ингредиентов")
     public List<String> getIngredientIds() {
-        return getIngredients().jsonPath().getList("data._id");
+        return RestAssured.given()
+                .when()
+                .get(BurgersConfig.INGREDIENTS)
+                .jsonPath()
+                .getList("data._id");
     }
 }

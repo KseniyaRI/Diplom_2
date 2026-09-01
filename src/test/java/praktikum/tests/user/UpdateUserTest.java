@@ -46,7 +46,7 @@ public class UpdateUserTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Авторизованный пользователь может изменить password")
+    @DisplayName("Авторизованный пользователь может изменить пароль")
     public void shouldUpdatePasswordWhenAuthorized() {
         User patch = new User(null, TestUserData.randomUser().getPassword(), null);
         Response response = userSteps.updateUser(accessToken, patch);
@@ -60,7 +60,7 @@ public class UpdateUserTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Авторизованный пользователь может изменить name")
+    @DisplayName("Авторизованный пользователь может изменить имя")
     public void shouldUpdateNameWhenAuthorized() {
         User patch = new User(null, null, TestUserData.randomUser().getName());
         Response response = userSteps.updateUser(accessToken, patch);
@@ -84,7 +84,7 @@ public class UpdateUserTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Без авторизации нельзя изменить password")
+    @DisplayName("Без авторизации нельзя изменить пароль")
     public void shouldReturnErrorWhenUpdatePasswordWithoutAuthorization() {
         User patch = new User(null, TestUserData.randomUser().getPassword(), null);
         Response response = userSteps.updateUserWithoutAuth(patch);
@@ -96,7 +96,7 @@ public class UpdateUserTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Без авторизации нельзя изменить name")
+    @DisplayName("Без авторизации нельзя изменить имя")
     public void shouldReturnErrorWhenUpdateNameWithoutAuthorization() {
         User patch = new User(null, null, TestUserData.randomUser().getName());
         Response response = userSteps.updateUserWithoutAuth(patch);

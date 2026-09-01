@@ -36,6 +36,12 @@ mvn test -Dtest=CreateOrderTest
 mvn allure:serve
 ```
 
+Скриншоты отчёта:
+
+![Обзор отчёта Allure](img/allure-report-1.png)
+
+![Сюиты Allure: список тестов](img/allure-report-2.png)
+
 ## Расхождение с документацией API: неверный хеш ингредиента
 
 В PDF по API для `POST /api/orders` указано: невалидный хеш ингредиента → **500** Internal Server Error. Но на живом стенде `qa-stellarburgers.education-services.ru` ответ **всегда 400**.

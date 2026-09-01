@@ -1,9 +1,10 @@
 # Maven
 target/
 
-# Allure (генерируются командами, в git не храним)
+# Allure
 allure-results/
 allure-report/
+.allure
 
 # Compiled classes
 *.class

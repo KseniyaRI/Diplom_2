@@ -52,14 +52,13 @@ public class CreateOrderTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Создание заказа без авторизации, с ингредиентами")
+    @DisplayName("Можно создать заказ без авторизации с ингредиентами")
     public void shouldCreateOrderWithoutAuthAndWithIngredients() {
         List<String> ids = orderSteps.getIngredientIds();
         Order order = new Order(List.of(ids.get(0), ids.get(1)));
 
         Response response = orderSteps.createOrder(null, order);
 
-        // фактический код сверить со стендом; ниже — типичный 200
         response.then()
                 .statusCode(200)
                 .body("success", equalTo(true))
