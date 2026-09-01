@@ -1,0 +1,22 @@
+# Maven
+target/
+
+# Allure (генерируются командами, в git не храним)
+allure-results/
+allure-report/
+
+# Compiled classes
+*.class
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code / Cursor
+.vscode/
+.cursor/
+
+# macOS
+.DS_Store
+
+docs/
