@@ -14,9 +14,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.14.4</junit.version>
         <rest-assured.version>5.5.1</rest-assured.version>
-        <gson.version>2.11.0</gson.version>
         <allure.version>2.29.1</allure.version>
         <aspectj.version>1.9.22</aspectj.version>
+        <lombok.version>1.18.34</lombok.version>
+        <datafaker.version>1.9.0</datafaker.version>
+        <jackson.version>2.17.1</jackson.version>
     </properties>
 
     <dependencies>
@@ -27,15 +29,21 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.14.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -54,6 +62,18 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${datafaker.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -75,7 +95,8 @@
                 <artifactId>allure-maven</artifactId>
                 <version>2.15.2</version>
                 <configuration>
-                    <reportVersion>${allure.version}</reportVersion>
+                    <reportVersion>2.29.0</reportVersion>
+                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
         </plugins>
